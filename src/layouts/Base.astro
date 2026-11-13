@@ -1,0 +1,51 @@
+---
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource-variable/source-sans-3';
+import '../styles/global.css';
+import { content, type Lang } from '../content';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  alternate?: { de: string; en: string };
+  jsonLd?: object;
+}
+const { lang, title, description, alternate, jsonLd } = Astro.props;
+const t = content[lang];
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const pageTitle = title ?? t.meta.title;
+const pageDesc = description ?? t.meta.description;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <link rel="canonical" href={canonical} />
+    {alternate && (
+      <>
+        <link rel="alternate" hreflang="de" href={new URL(alternate.de, site).href} />
+        <link rel="alternate" hreflang="en" href={new URL(alternate.en, site).href} />
+        <link rel="alternate" hreflang="x-default" href={new URL(alternate.de, site).href} />
+      </>
+    )}
+    <meta name="theme-color" content="#2f4550" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:image" content={new URL('/img/og.jpg', site).href} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'de' ? 'de_DE' : 'en_GB'} />
+    <link rel="preload" as="image" href="/img/hero-1600.webp" imagesrcset="/img/hero-800.webp 800w, /img/hero-1600.webp 1600w, /img/hero-2400.webp 2400w" imagesizes="100vw" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

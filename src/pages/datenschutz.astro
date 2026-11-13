@@ -1,0 +1,16 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { OPERATOR as o } from '../site';
+---
+<LegalPage lang="de" title="Datenschutz" other="/en/privacy/">
+  <h2>Verantwortlicher</h2>
+  <p>{o.name}, {o.street}, {o.city}. E-Mail: {o.email}</p>
+  <h2>Kurz gesagt</h2>
+  <p>Diese Website setzt keine Cookies, verwendet kein Tracking und keine Analyse-Tools und bindet keine Inhalte Dritter (z.&nbsp;B. Google Fonts, Karten oder Videos) ein. Schriften und Bilder werden von unserem eigenen Server geladen.</p>
+  <h2>Hosting und Server-Logfiles</h2>
+  <p>Die Website wird bei Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA gehostet. Beim Aufruf der Seite verarbeitet der Hoster technisch notwendige Daten (z.&nbsp;B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp), um die Website auszuliefern und ihre Sicherheit zu gewährleisten. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). Vercel ist unter dem EU-US Data Privacy Framework zertifiziert; mit Vercel besteht ein Auftragsverarbeitungsvertrag.</p>
+  <h2>Links zur Buchung</h2>
+  <p>Für Verfügbarkeit und Buchung verlinken wir auf die Website der Agentur „Ferien an der Nordsee“. Erst wenn Sie dem Link folgen, werden Daten an diesen Anbieter übertragen; dort gilt dessen Datenschutzerklärung.</p>
+  <h2>Ihre Rechte</h2>
+  <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch sowie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.</p>
+</LegalPage>

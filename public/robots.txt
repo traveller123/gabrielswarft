@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gabrielswarft.de/sitemap-index.xml

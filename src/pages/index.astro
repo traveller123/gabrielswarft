@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import Home from '../components/Home.astro';
+import { content } from '../content';
+import { jsonLd } from '../jsonld';
+---
+<Base lang="de" alternate={{ de: '/', en: '/en/' }} jsonLd={jsonLd('de', content.de.meta.description)}>
+  <Home lang="de" />
+</Base>

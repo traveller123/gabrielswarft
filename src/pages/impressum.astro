@@ -1,0 +1,19 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { OPERATOR as o } from '../site';
+---
+<LegalPage lang="de" title="Impressum" other="/en/imprint/">
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>{o.name}<br />{o.street}<br />{o.city}</p>
+  <p>Vertreten durch: {o.representative}</p>
+  <p>Registereintrag: {o.register}</p>
+  <p>Umsatzsteuer-Identifikationsnummer: {o.vat}</p>
+  <h2>Kontakt</h2>
+  <p>E-Mail: {o.email}</p>
+  <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+  <p>{o.representative.replace(' (Direktor)', '')}, Anschrift wie oben</p>
+  <h2>Vermietung und Buchung</h2>
+  <p>Die Vermietung des Ferienhauses erfolgt über die Agentur „Ferien an der Nordsee“. Für Buchungen gelten deren Geschäftsbedingungen und Angaben.</p>
+  <h2>Verbraucherstreitbeilegung</h2>
+  <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+</LegalPage>

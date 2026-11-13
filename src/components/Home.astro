@@ -1,0 +1,178 @@
+---
+import Img from './Img.astro';
+import { content, gallery, type Lang } from '../content';
+import { BOOKING_URL, MAP_URL } from '../site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = content[lang];
+const other = lang === 'de' ? '/en/' : '/';
+const legal = lang === 'de'
+  ? { imprint: '/impressum/', privacy: '/datenschutz/' }
+  : { imprint: '/en/imprint/', privacy: '/en/privacy/' };
+const alt = (i: number) => (lang === 'de' ? gallery[i][1] : gallery[i][2]);
+---
+<header class="topbar">
+  <a class="wordmark" href={lang === 'de' ? '/' : '/en/'}>Gabrielswarft</a>
+  <nav class="anchors" aria-label="Sections">
+    <a href="#haus">{t.nav.house}</a>
+    <a href="#raeume">{t.nav.rooms}</a>
+    <a href="#lage">{t.nav.place}</a>
+    <a href="#hund">{t.nav.dogs}</a>
+    <a href="#details">{t.nav.facts}</a>
+  </nav>
+  <div class="topbar-right">
+    <a class="lang" href={other} hreflang={lang === 'de' ? 'en' : 'de'}>{lang === 'de' ? 'EN' : 'DE'}</a>
+    <a class="btn btn-small" href={BOOKING_URL} target="_blank" rel="noopener">{t.nav.book}</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <Img name="hero" alt={lang === 'de' ? 'Gartenweg zum Reetdachhaus Gabrielswarft' : 'Garden path to Gabrielswarft thatched cottage'} sizes="100vw" eager />
+    <div class="hero-text">
+      <p class="kicker">{t.hero.kicker}</p>
+      <h1>{t.hero.title}</h1>
+      <p class="lead">{t.hero.lead}</p>
+    </div>
+  </section>
+
+  <ul class="keyfacts">
+    {t.keyfacts.map((f) => <li>{f}</li>)}
+  </ul>
+
+  <section id="haus" class="split wrap">
+    <div class="prose">
+      <h2>{t.intro.title}</h2>
+      {t.intro.text.map((p) => <p>{p}</p>)}
+    </div>
+    <figure><Img name="exterior" alt={alt(0)} /></figure>
+  </section>
+
+  <figure class="bleed"><Img name="entrance" alt={alt(14)} sizes="100vw" /></figure>
+
+  <section class="wrap why">
+    <h2>{t.why.title}</h2>
+    <div class="three">
+      {t.why.items.map((i) => (
+        <div><h3>{i.h}</h3><p>{i.p}</p></div>
+      ))}
+    </div>
+  </section>
+
+  <section id="raeume" class="wrap rooms">
+    <h2>{t.rooms.title}</h2>
+    {t.rooms.blocks.map((b, i) => (
+      <div class={`room ${i % 2 ? 'flip' : ''}`}>
+        <figure><Img name={['living', 'bedroom-up-window', 'pavilion'][i]} alt={b.h} /></figure>
+        <div class="prose"><h3>{b.h}</h3><p>{b.p}</p></div>
+      </div>
+    ))}
+  </section>
+
+  <section class="season">
+    <Img name="winter-dusk" alt={alt(17)} sizes="100vw" />
+    <div class="season-text">
+      <h2>{t.seasons.title}</h2>
+      <p>{t.seasons.text}</p>
+    </div>
+  </section>
+
+  <section id="lage" class="split wrap">
+    <div class="prose">
+      <h2>{t.place.title}</h2>
+      {t.place.text.map((p) => <p>{p}</p>)}
+      <dl class="distances">
+        {t.place.distances.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
+      </dl>
+      <p><a class="link" href={MAP_URL} target="_blank" rel="noopener">{t.place.mapLink} →</a></p>
+    </div>
+    <figure><Img name="winter-sheep" alt={alt(18)} /></figure>
+  </section>
+
+  <section id="hund" class="split wrap flip">
+    <div class="prose">
+      <h2>{t.dogs.title}</h2>
+      {t.dogs.text.map((p) => <p>{p}</p>)}
+      <h3 class="mt">{t.forwhom.title}</h3>
+      <ul class="dash">{t.forwhom.items.map((i) => <li>{i}</li>)}</ul>
+    </div>
+    <figure><Img name="sunset" alt={alt(20)} /></figure>
+  </section>
+
+  <section class="wrap gallery-wrap">
+    <h2>{t.gallery.title}</h2>
+    <div class="gallery">
+      {gallery.map(([name], i) => (
+        <button type="button" class="thumb" data-name={name} aria-label={alt(i)}>
+          <Img name={name} alt={alt(i)} sizes="(min-width: 900px) 25vw, 50vw" />
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <section id="details" class="wrap facts">
+    <h2>{t.facts.title}</h2>
+    <table>
+      <tbody>
+        {t.facts.rows.map(([k, v]) => (<tr><th scope="row">{k}</th><td>{v}</td></tr>))}
+      </tbody>
+    </table>
+  </section>
+
+  <section id="buchen" class="book">
+    <div class="wrap narrow">
+      <h2>{t.book.title}</h2>
+      <p>{t.book.text}</p>
+      <a class="btn btn-light" href={BOOKING_URL} target="_blank" rel="noopener">{t.book.cta}</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer wrap">
+  <span>Gabrielswarft · Fahretoft · Dagebüll</span>
+  <nav>
+    <a href={legal.imprint}>{t.footer.imprint}</a>
+    <a href={legal.privacy}>{t.footer.privacy}</a>
+    <a href={other}>{t.footer.switch}</a>
+  </nav>
+</footer>
+
+<a class="mobile-book btn" href={BOOKING_URL} target="_blank" rel="noopener">{t.book.cta}</a>
+
+<dialog class="lightbox" aria-label={t.gallery.title}>
+  <img alt="" />
+  <button type="button" class="lb-close" aria-label={t.gallery.close}>×</button>
+  <button type="button" class="lb-prev" aria-label={t.gallery.prev}>‹</button>
+  <button type="button" class="lb-next" aria-label={t.gallery.next}>›</button>
+</dialog>
+
+<script>
+  const dlg = document.querySelector<HTMLDialogElement>('.lightbox')!;
+  const img = dlg.querySelector('img')!;
+  const thumbs = [...document.querySelectorAll<HTMLButtonElement>('.thumb')];
+  let i = 0;
+  const show = (n: number) => {
+    i = (n + thumbs.length) % thumbs.length;
+    img.src = `/img/${thumbs[i].dataset.name}-1600.webp`;
+    img.alt = thumbs[i].getAttribute('aria-label') ?? '';
+  };
+  thumbs.forEach((b, n) => b.addEventListener('click', () => { show(n); dlg.showModal(); }));
+  dlg.querySelector('.lb-close')!.addEventListener('click', () => dlg.close());
+  dlg.querySelector('.lb-prev')!.addEventListener('click', () => show(i - 1));
+  dlg.querySelector('.lb-next')!.addEventListener('click', () => show(i + 1));
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  document.addEventListener('keydown', (e) => {
+    if (!dlg.open) return;
+    if (e.key === 'ArrowLeft') show(i - 1);
+    if (e.key === 'ArrowRight') show(i + 1);
+  });
+  let x0: number | null = null;
+  dlg.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  dlg.addEventListener('touchend', (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+</script>

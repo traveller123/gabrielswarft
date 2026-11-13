@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import type { Lang } from '../content';
+interface Props { lang: Lang; title: string; other: string }
+const { lang, title, other } = Astro.props;
+const home = lang === 'de' ? '/' : '/en/';
+---
+<Base lang={lang} title={`${title} · Gabrielswarft`}>
+  <header class="topbar">
+    <a class="wordmark" href={home}>Gabrielswarft</a>
+    <div class="topbar-right"><a class="lang" href={other}>{lang === 'de' ? 'EN' : 'DE'}</a></div>
+  </header>
+  <main class="wrap legal">
+    <h1>{title}</h1>
+    <slot />
+    <p><a class="link" href={home}>← {lang === 'de' ? 'Zur Startseite' : 'Back to home'}</a></p>
+  </main>
+</Base>
