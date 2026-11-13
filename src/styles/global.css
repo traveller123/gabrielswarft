@@ -28,6 +28,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img { display: block; max-width: 100%; height: auto; }
+/* Saisonbilder: html.winter / html.summer wird im <head> gesetzt */
+html.winter [data-season='summer'], html.summer [data-season='winter'] { display: none; }
+html:not(.winter):not(.summer) [data-season='winter'] { display: none; }
 a { color: inherit; }
 h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.15; color: var(--sea-deep); margin: 0 0 .6em; }
 h2 { font-size: clamp(2rem, 4vw, 2.9rem); }

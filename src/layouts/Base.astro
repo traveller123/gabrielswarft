@@ -4,6 +4,7 @@ import '@fontsource/cormorant-garamond/500-italic.css';
 import '@fontsource-variable/source-sans-3';
 import '../styles/global.css';
 import { content, type Lang } from '../content';
+import { WINTER_MONTHS } from '../site';
 
 interface Props {
   lang: Lang;
@@ -42,7 +43,14 @@ const pageDesc = description ?? t.meta.description;
     <meta property="og:image" content={new URL('/img/og.jpg', site).href} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={lang === 'de' ? 'de_DE' : 'en_GB'} />
-    <link rel="preload" as="image" href="/img/hero-1600.webp" imagesrcset="/img/hero-800.webp 800w, /img/hero-1600.webp 1600w, /img/hero-2400.webp 2400w" imagesizes="100vw" />
+    <script is:inline define:vars={{ months: WINTER_MONTHS }}>
+      // Jahreszeit vor dem ersten Rendern setzen, damit nur die passenden Bilder laden.
+      (function () {
+        var q = new URLSearchParams(location.search).get('saison');
+        var winter = q ? q === 'winter' : months.indexOf(new Date().getMonth() + 1) !== -1;
+        document.documentElement.classList.add(winter ? 'winter' : 'summer');
+      })();
+    </script>
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>

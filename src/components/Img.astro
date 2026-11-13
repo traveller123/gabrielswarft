@@ -5,19 +5,24 @@ interface Props {
   sizes?: string;
   eager?: boolean;
   class?: string;
+  /** Nur in dieser Jahreszeit anzeigen (siehe WINTER_MONTHS in site.ts) */
+  season?: 'summer' | 'winter';
 }
-const { name, alt, sizes = '(min-width: 900px) 50vw, 100vw', eager = false, class: cls } = Astro.props;
-const srcset = name === 'hero'
-  ? `/img/hero-800.webp 800w, /img/hero-1600.webp 1600w, /img/hero-2400.webp 2400w`
+const { name, alt, sizes = '(min-width: 900px) 50vw, 100vw', eager = false, class: cls, season } = Astro.props;
+const big = name.startsWith('hero');
+const srcset = big
+  ? `/img/${name}-800.webp 800w, /img/${name}-1600.webp 1600w, /img/${name}-2400.webp 2400w`
   : `/img/${name}-800.webp 800w, /img/${name}-1600.webp 1600w`;
+// Saisonbilder sind "lazy": ausgeblendete Bilder (display:none) lädt der Browser dann gar nicht.
 ---
 <img
   class={cls}
+  data-season={season}
   src={`/img/${name}-1600.webp`}
   srcset={srcset}
   sizes={sizes}
   alt={alt}
-  loading={eager ? 'eager' : 'lazy'}
+  loading={eager && !season ? 'eager' : 'lazy'}
   decoding="async"
   fetchpriority={eager ? 'high' : undefined}
 />

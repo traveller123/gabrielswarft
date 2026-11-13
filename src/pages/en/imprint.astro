@@ -5,7 +5,7 @@ import { OPERATOR as o } from '../../site';
 <LegalPage lang="en" title="Imprint" other="/impressum/">
   <p>The legally binding version is the <a class="link" href="/impressum/">German Impressum</a>.</p>
   <h2>Operator</h2>
-  <p>{o.name}<br />{o.street}<br />{o.city}</p>
+  <p>{o.name}<br />{o.street}<br />{o.city.replace('Litauen', 'Lithuania')}</p>
   <p>Represented by: {o.representative.replace('Direktor', 'Director')}</p>
   <p>Company register: {o.register}</p>
   <p>VAT ID: {o.vat}</p>
