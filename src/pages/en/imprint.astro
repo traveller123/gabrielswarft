@@ -10,7 +10,7 @@ import { OPERATOR as o } from '../../site';
   <p>Company register: {o.register}</p>
   <p>VAT ID: {o.vat}</p>
   <h2>Contact</h2>
-  <p>Email: {o.email}</p>
+  <p>Email: <a class="link" href={`mailto:${o.email}`}>{o.email}</a></p>
   <h2>Booking</h2>
   <p>The holiday house is let through the agency “Ferien an der Nordsee”. Their terms and conditions apply to all bookings.</p>
 </LegalPage>

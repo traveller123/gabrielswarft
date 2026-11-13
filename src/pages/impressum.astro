@@ -9,7 +9,7 @@ import { OPERATOR as o } from '../site';
   <p>Registereintrag: {o.register}</p>
   <p>Umsatzsteuer-Identifikationsnummer: {o.vat}</p>
   <h2>Kontakt</h2>
-  <p>E-Mail: {o.email}</p>
+  <p>E-Mail: <a class="link" href={`mailto:${o.email}`}>{o.email}</a></p>
   <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
   <p>{o.representative.replace(' (Direktor)', '')}, Anschrift wie oben</p>
   <h2>Vermietung und Buchung</h2>
